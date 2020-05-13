@@ -1,18 +1,18 @@
 const message = (sequelize, DataTypes) => {
-    const Message = sequelize.define('message', {
-        text: {
-            type: DataTypes.STRING,
-            validate: {
-                notEmpty: {
-                    args: true,
-                    msg: 'A message needs to have text.',
-                },
-            },
+  const Message = sequelize.define('message', {
+    text: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'A message needs to have text.',
         },
-    });
-    Message.associate = models => {
-        Message.belongsTo(models.User);
-    };
-    return Message;
+      },
+    },
+  });
+  Message.associate = (models) => {
+    Message.belongsTo(models.User);
+  };
+  return Message;
 };
 module.exports = message;

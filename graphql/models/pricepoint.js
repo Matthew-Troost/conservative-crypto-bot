@@ -1,34 +1,34 @@
 const pricePoint = (sequelize, DataTypes) => {
-    const PricePoint = sequelize.define('pricepoint', {
-        currency: {
-            type: DataTypes.STRING,
-            validate: {
-                notEmpty: {
-                    args: true,
-                    msg: 'A price point needs to have a base currency.',
-                },
-            },
+  const PricePoint = sequelize.define('pricepoint', {
+    currency: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'A price point needs to have a base currency.',
         },
-        crypto: {
-            type: DataTypes.STRING,
-            validate: {
-                notEmpty: {
-                    args: true,
-                    msg: 'A price point needs to have a crypto currency.',
-                },
-            },
+      },
+    },
+    crypto: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'A price point needs to have a crypto currency.',
         },
-        value: {
-            type: DataTypes.INT,
-            validate: {
-                notEmpty: {
-                    args: true,
-                    msg: 'A price point needs to have a value.',
-                },
-            },
+      },
+    },
+    value: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'A price point needs to have a value.',
         },
-    });
+      },
+    },
+  });
 
-    return PricePoint;
+  return PricePoint;
 };
 module.exports = pricePoint;

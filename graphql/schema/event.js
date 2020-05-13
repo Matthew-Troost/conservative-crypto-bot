@@ -1,12 +1,12 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
-//schema =  all the available data for reading and writing data via GraphQL.
+// schema =  all the available data for reading and writing data via GraphQL.
 const event = gql`
   extend type Query {
-    events: [Message!]!
+    events: [Event!]!
   }
   extend type Mutation {
-    createEvent(type: String!): Event!
+    createEvent(type: String!, pricepointId: Int!): Event!
   }
   extend type Subscription {
     eventCreated: EventCreated!

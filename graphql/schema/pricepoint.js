@@ -1,14 +1,14 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
-//schema =  all the available data for reading and writing data via GraphQL.
+// schema =  all the available data for reading and writing data via GraphQL.
 const pricePoint = gql`
   extend type Query {
-    pricePoints: [Message!]!
+    pricePoints: [PricePoint!]!
   }
   extend type Mutation {
     createPricePoint(
-      currency: String!
-      crypto: String1
+      currency: String!,
+      crypto: String!,
       value: Int!
     ): PricePoint!
   }

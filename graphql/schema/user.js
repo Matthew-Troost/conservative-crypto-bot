@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-//schema =  all the available data for reading and writing data via GraphQL.
+// schema =  all the available data for reading and writing data via GraphQL.
 const user = gql`
 extend type Query {
     users: [User!]
@@ -17,7 +17,6 @@ extend type Query {
     ): Token!
     
     signIn(login: String!, password: String!): Token!
-
     deleteUser(id: ID!): Boolean!
   }
 
@@ -34,4 +33,4 @@ extend type Query {
   }
 `;
 
-module.exports = user
+module.exports = user;
