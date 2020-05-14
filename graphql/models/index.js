@@ -11,7 +11,6 @@ const sequelize = new Sequelize(
 
 const models = {
   User: sequelize.import('./user'),
-  Message: sequelize.import('./message'),
   PricePoint: sequelize.import('./pricepoint'),
   Event: sequelize.import('./event'),
 };

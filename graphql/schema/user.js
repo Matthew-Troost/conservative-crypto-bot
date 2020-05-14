@@ -29,7 +29,6 @@ extend type Query {
     id: ID!
     username: String!
     email: String!
-    messages: [Message!]
   }
 `;
 

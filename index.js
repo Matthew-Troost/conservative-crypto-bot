@@ -88,15 +88,6 @@ const seedDatabase = async () => {
       email: 'hello@robin.com',
       password: 'rwieruch',
       role: 'ADMIN',
-      messages: [
-        {
-          text: 'Published the Road to learn React',
-          createdAt: new Date(),
-        },
-      ],
-    },
-    {
-      include: [models.Message],
     },
   );
   await models.User.create(
@@ -104,19 +95,6 @@ const seedDatabase = async () => {
       username: 'ddavids',
       email: 'hello@david.com',
       password: 'ddavids',
-      messages: [
-        {
-          text: 'Happy to release ...',
-          createdAt: new Date(),
-        },
-        {
-          text: 'Published a complete ...',
-          createdAt: new Date(),
-        },
-      ],
-    },
-    {
-      include: [models.Message],
     },
   );
 };

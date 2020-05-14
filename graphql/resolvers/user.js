@@ -60,16 +60,6 @@ const resolvers = {
       },
     ),
   },
-
-  User: {
-    messages: async (user, args, { models }) => {
-      return await models.Message.findAll({
-        where: {
-          userId: user.id,
-        },
-      });
-    },
-  },
 };
 
 const createToken = async (user, secret, expiresIn) => {
