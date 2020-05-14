@@ -1,4 +1,4 @@
-<h1 align="center">Conservative Crypto Trading Bot</h1>
+<h1 align="center">Conservative Crypto Trading Bot - API</h1>
 
 > An experimental algorithm to trade crypto currency on a minute-to-minute basis.
 
