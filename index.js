@@ -71,12 +71,14 @@ server.installSubscriptionHandlers(httpServer);
 
 const isTest = !!process.env.TEST_DATABASE;
 
+const port = process.env.PORT || 8000; //heroku environment variable (merged on deploy)
+
 sequelize.sync({ force: isTest }).then(async () => {
   if (isTest) {
     seedDatabase();
   }
 
-  httpServer.listen({ port: 8000 }, () => {
+  httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${isTest ? '5432' : '8000'}/graphql`);
   });
 });
