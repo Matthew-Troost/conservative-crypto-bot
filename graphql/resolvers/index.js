@@ -3,7 +3,7 @@ const { GraphQLDateTime } = require('graphql-iso-date');
 const userResolvers = require('./user');
 const pricePointResolvers = require('./pricepoint');
 const eventResolvers = require('./event');
-const stateResolvers = require('./event');
+const stateResolvers = require('./state');
 
 const customScalarResolver = {
   Date: GraphQLDateTime,

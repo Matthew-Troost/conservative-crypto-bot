@@ -2,13 +2,13 @@ const { gql } = require('apollo-server-express');
 
 const state = gql`
   extend type Query {
-    state: [State!]!
+    state: State!
   }
   extend type Mutation {
     updateState(
       status: String!,
-      downwardCount: Int!
-    ): State!
+      downwardCount: Int
+    ): Boolean!
   }
   extend type Subscription {
     stateUpdated: StateUpdated!
@@ -18,7 +18,7 @@ const state = gql`
   type State {
     id: ID!
     status: String!
-    downwardCount: Int!
+    downwardCount: Int
   }
   type StateUpdated {
     state: State!

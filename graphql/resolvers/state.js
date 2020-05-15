@@ -1,6 +1,6 @@
-const { combineResolvers } = require('graphql-resolvers');
-const { isAuthenticated } = require('./authorization');
-const { pubsub, EVENTS } = require('../subscriptions');
+const { combineResolvers } = require("graphql-resolvers");
+const { isAuthenticated } = require("./authorization");
+const { pubsub, EVENTS } = require("../subscriptions");
 
 const resolvers = {
   Query: {
@@ -10,15 +10,24 @@ const resolvers = {
     updateState: combineResolvers(
       isAuthenticated,
       async (parent, { status, downwardCount }, { models }) => {
-        const state = await models.State.update({
+        const result = await models.State.update(
+          {
             status,
             downwardCount,
-        });
+          },
+          {
+            where: {
+              id: 1,
+            },
+            returning: true,
+            plain: true
+          }
+        );
         pubsub.publish(EVENTS.STATE.UPDATED, {
-          stateUpdated: { state },
+          stateUpdated: { state: result[1].dataValues },
         });
-        return state;
-      },
+        return true;
+      }
     ),
   },
   Subscription: {
