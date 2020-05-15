@@ -9,7 +9,7 @@ const pricePoint = gql`
     createPricePoint(
       currency: String!,
       crypto: String!,
-      value: Int!
+      value: Float!
     ): PricePoint!
   }
   extend type Subscription {
@@ -22,7 +22,7 @@ const pricePoint = gql`
     createdAt: Date!
     currency: String!
     crypto: String!
-    value: Int!
+    value: Float!
   }
   type PricePointCreated {
     pricePoint: PricePoint!

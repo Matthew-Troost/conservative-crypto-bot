@@ -19,7 +19,7 @@ const pricePoint = (sequelize, DataTypes) => {
       },
     },
     value: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
         notEmpty: {
           args: true,
