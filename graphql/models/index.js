@@ -17,12 +17,11 @@ else{
   );
 }
 
-
-
 const models = {
   User: sequelize.import('./user'),
   PricePoint: sequelize.import('./pricepoint'),
   Event: sequelize.import('./event'),
+  State: sequelize.import('./state'),
 };
 
 Object.keys(models).forEach((key) => {
