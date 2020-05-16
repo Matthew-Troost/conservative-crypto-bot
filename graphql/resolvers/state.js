@@ -9,20 +9,14 @@ const resolvers = {
   Mutation: {
     updateState: combineResolvers(
       isAuthenticated,
-      async (parent, { status, downwardCount }, { models }) => {
-        const result = await models.State.update(
-          {
-            status,
-            downwardCount,
+      async (parent, args, { models }) => {
+        const result = await models.State.update(args, {
+          where: {
+            id: 1,
           },
-          {
-            where: {
-              id: 1,
-            },
-            returning: true,
-            plain: true
-          }
-        );
+          returning: true,
+          plain: true,
+        });
         pubsub.publish(EVENTS.STATE.UPDATED, {
           stateUpdated: { state: result[1].dataValues },
         });

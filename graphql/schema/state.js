@@ -6,7 +6,7 @@ const state = gql`
   }
   extend type Mutation {
     updateState(
-      status: String!,
+      status: String,
       downwardCount: Int
     ): Boolean!
   }
