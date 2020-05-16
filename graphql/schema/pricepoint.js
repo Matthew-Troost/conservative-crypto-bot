@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 // schema =  all the available data for reading and writing data via GraphQL.
 const pricePoint = gql`
   extend type Query {
-    pricePoints: [PricePoint!]!
+    pricePoints(cursor: String, limit: Int): [PricePoint!]!
   }
   extend type Mutation {
     createPricePoint(
