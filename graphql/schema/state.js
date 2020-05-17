@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const state = gql`
   extend type Query {
@@ -6,8 +6,11 @@ const state = gql`
   }
   extend type Mutation {
     updateState(
-      status: String,
+      status: String
       downwardCount: Int
+      entryPricePointId: Int
+      reservePricePointId: Int
+      lastDownwardPricePointId: Int
     ): Boolean!
   }
   extend type Subscription {
@@ -19,6 +22,9 @@ const state = gql`
     id: ID!
     status: String!
     downwardCount: Int
+    entryPricePoint: PricePoint
+    reservePricePoint: PricePoint
+    lastDownwardPricePoint: PricePoint
   }
   type StateUpdated {
     state: State!
