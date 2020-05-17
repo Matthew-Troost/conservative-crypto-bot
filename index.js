@@ -6,7 +6,7 @@ const DataLoader = require('dataloader');
 const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const schema = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
-const { models, sequelize } = require('./graphql/models');
+const { models, sequelize } = require('./models');
 const loaders = require('./graphql/loaders');
 
 const app = express();
