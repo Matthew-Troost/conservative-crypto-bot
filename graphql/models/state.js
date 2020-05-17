@@ -12,6 +12,15 @@ const state = (sequelize, DataTypes) => {
     downwardCount: {
       type: DataTypes.INTEGER,
     },
+    entryPricePointId: {
+      type: DataTypes.INTEGER,
+    },
+    reservePricePointId: {
+      type: DataTypes.INTEGER,
+    },
+    lastDownwardPricePointId: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   return State;
