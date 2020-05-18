@@ -1,51 +1,49 @@
-'use strict';
-const Sequelize = require('sequelize');
-const Umzug = require('umzug');
+"use strict";
+const Sequelize = require("sequelize");
+const Umzug = require("umzug");
 
 let sequelize;
-if (process.env.DATABASE_URL) { //heroku environment variable (merged at deployment)
+if (process.env.DATABASE_URL) {
+  //heroku environment variable (merged at deployment)
   sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
+    dialect: "postgres",
   });
-}
-else{
-   sequelize = new Sequelize(
+} else {
+  sequelize = new Sequelize(
     process.env.TEST_DATABASE || process.env.DATABASE,
     process.env.DATABASE_USER,
     process.env.DATABASE_PASSWORD,
     {
-      dialect: 'postgres',
-    },
+      dialect: "postgres",
+    }
   );
 }
 
 const models = {
-  User: sequelize.import('./user'),
-  PricePoint: sequelize.import('./pricepoint'),
-  Event: sequelize.import('./event'),
-  State: sequelize.import('./state'),
+  User: sequelize.import("./user"),
+  PricePoint: sequelize.import("./pricepoint"),
+  Event: sequelize.import("./event"),
+  State: sequelize.import("./state"),
 };
 
 Object.keys(models).forEach((key) => {
-  if ('associate' in models[key]) {
+  if ("associate" in models[key]) {
     models[key].associate(models);
   }
 });
 
 const umzug = new Umzug({
   migrations: {
-    path: './migrations',
-    params: [
-      sequelize.getQueryInterface()
-    ]
+    path: "./migrations",
+    params: [sequelize.getQueryInterface()],
   },
-    // indicates that the migration data should be store in the database
+  // indicates that the migration data should be store in the database
   // itself through sequelize. The default configuration creates a table
   // named `SequelizeMeta`.
-  storage: 'sequelize',
+  storage: "sequelize",
   storageOptions: {
-    sequelize: sequelize
-  }
+    sequelize: sequelize,
+  },
 });
 
 (async () => {

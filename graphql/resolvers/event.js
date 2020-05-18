@@ -1,13 +1,29 @@
-const { combineResolvers } = require('graphql-resolvers');
-const { isAuthenticated } = require('./authorization');
-const { pubsub, EVENTS } = require('../subscriptions');
+const { combineResolvers } = require("graphql-resolvers");
+const { isAuthenticated } = require("./authorization");
+const { pubsub, EVENTS } = require("../subscriptions");
 
 // resolver map
 // each resolver has 4 arguments (parent, args, context, info).
 // Can inject dependencies for the resolver via context
 const resolvers = {
   Query: {
-    events: async (parent, args, { models }) => await models.Event.findAll(),
+    events: async (parent, { minimumDate, limit = 5 }, { models }) => {
+      const options = minimumDate
+        ? {
+            where: {
+              createdAt: {
+                [Sequelize.Op.gt]: minimumDate,
+              },
+            },
+          }
+        : {};
+
+      return await models.Event.findAll({
+        order: [["createdAt", "DESC"]],
+        limit,
+        options
+      });
+    },
   },
   Mutation: {
     createEvent: combineResolvers(
@@ -23,7 +39,7 @@ const resolvers = {
         });
 
         return event;
-      },
+      }
     ),
   },
   Subscription: {
@@ -34,7 +50,8 @@ const resolvers = {
 
   // field level resolvers
   Event: {
-    pricePoint: async (event, args, { loaders }) => await loaders.pricePoint.load(event.pricepointId),
+    pricePoint: async (event, args, { loaders }) =>
+      await loaders.pricePoint.load(event.pricepointId),
   },
 };
 

@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 // schema =  all the available data for reading and writing data via GraphQL.
 const event = gql`
   extend type Query {
-    events: [Event!]!
+    events(minimumDate: String, limit: Int): [Event!]!
   }
   extend type Mutation {
     createEvent(type: String!, pricepointId: Int!): Event!
