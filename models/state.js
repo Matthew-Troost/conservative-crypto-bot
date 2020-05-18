@@ -21,6 +21,9 @@ const state = (sequelize, DataTypes) => {
     lastDownwardPricePointId: {
       type: DataTypes.INTEGER,
     },
+    lastCashOut: {
+      type: DataTypes.DATE,
+    },
   });
 
   return State;

@@ -11,6 +11,7 @@ const state = gql`
       entryPricePointId: Int
       reservePricePointId: Int
       lastDownwardPricePointId: Int
+      lastCashOut: String
     ): Boolean!
   }
   extend type Subscription {
@@ -25,6 +26,7 @@ const state = gql`
     entryPricePoint: PricePoint
     reservePricePoint: PricePoint
     lastDownwardPricePoint: PricePoint
+    lastCashOut: Date
   }
   type StateUpdated {
     state: State!
