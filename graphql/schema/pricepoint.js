@@ -13,7 +13,7 @@ const pricePoint = gql`
     ): PricePoint!
   }
   extend type Subscription {
-    pricePointCreated: PricePointCreated!
+    pricePointCreated: PricePointCreated
   }
 
   #----- FIELDS -----

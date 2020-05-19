@@ -1,25 +1,23 @@
-require('dotenv/config');
-const express = require('express');
-const http = require('http');
-const jwt = require('jsonwebtoken');
-const DataLoader = require('dataloader');
-const { ApolloServer, AuthenticationError } = require('apollo-server-express');
-const schema = require('./graphql/schema');
-const resolvers = require('./graphql/resolvers');
-const { models, sequelize } = require('./models');
-const loaders = require('./graphql/loaders');
+require("dotenv/config");
+const express = require("express");
+const http = require("http");
+const jwt = require("jsonwebtoken");
+const DataLoader = require("dataloader");
+const { ApolloServer, AuthenticationError } = require("apollo-server-express");
+const schema = require("./graphql/schema");
+const resolvers = require("./graphql/resolvers");
+const { models, sequelize } = require("./models");
+const loaders = require("./graphql/loaders");
 
 const app = express();
 
 const getMe = async (req) => {
-  const token = req.headers['x-token'];
+  const token = req.headers["x-token"];
   if (token) {
     try {
       return await jwt.verify(token, process.env.SECRET);
     } catch (e) {
-      throw new AuthenticationError(
-        'Your session expired. Sign in again.',
-      );
+      throw new AuthenticationError("Your session expired. Sign in again.");
     }
   }
 };
@@ -33,19 +31,22 @@ const server = new ApolloServer({
     // remove the internal sequelize error message
     // leave only the important validation error
     const message = error.message
-      .replace('SequelizeValidationError: ', '')
-      .replace('Validation error: ', '');
+      .replace("SequelizeValidationError: ", "")
+      .replace("Validation error: ", "");
     return {
       ...error,
       message,
     };
   },
-  context: async ({ req, connection }) => { // this function is hit everytime a request is made to the server
+  context: async ({ req, connection }) => {
+    // this function is hit everytime a request is made to the server
     if (connection) {
       return {
         models,
         loaders: {
-          pricePoint: new DataLoader((keys) => loaders.batchPricePoints(keys, models)),
+          pricePoint: new DataLoader((keys) =>
+            loaders.batchPricePoints(keys, models)
+          ),
           user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
         },
       };
@@ -58,15 +59,17 @@ const server = new ApolloServer({
         me,
         secret: process.env.SECRET,
         loaders: {
-          pricePoint: new DataLoader((keys) => loaders.batchPricePoints(keys, models)),
+          pricePoint: new DataLoader((keys) =>
+            loaders.batchPricePoints(keys, models)
+          ),
           user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
         },
       };
     }
-  },
+  }
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
+server.applyMiddleware({ app, path: "/graphql" });
 
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
@@ -81,24 +84,22 @@ sequelize.sync({ force: isTest }).then(async () => {
   }
 
   httpServer.listen({ port }, () => {
-    console.log(`Apollo Server on http://localhost:${isTest ? '5432' : '8000'}/graphql`);
+    console.log(
+      `Apollo Server on http://localhost:${isTest ? "5432" : "8000"}/graphql`
+    );
   });
 });
 
 const seedDatabase = async () => {
-  await models.User.create(
-    {
-      username: 'rwieruch',
-      email: 'hello@robin.com',
-      password: 'rwieruch',
-      role: 'ADMIN',
-    },
-  );
-  await models.User.create(
-    {
-      username: 'ddavids',
-      email: 'hello@david.com',
-      password: 'ddavids',
-    },
-  );
+  await models.User.create({
+    username: "rwieruch",
+    email: "hello@robin.com",
+    password: "rwieruch",
+    role: "ADMIN",
+  });
+  await models.User.create({
+    username: "ddavids",
+    email: "hello@david.com",
+    password: "ddavids",
+  });
 };
