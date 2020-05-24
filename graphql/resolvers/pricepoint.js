@@ -1,6 +1,7 @@
 const { combineResolvers } = require("graphql-resolvers");
 const { isAuthenticated } = require("./authorization");
 const { pubsub, EVENTS } = require("../subscriptions");
+const moment = require('moment')
 const Sequelize = require('sequelize');
 
 // resolver map
@@ -41,6 +42,14 @@ const resolvers = {
         return pricePoint;
       }
     ),
+    deleteOldPricePoints: combineResolvers(
+      isAuthenticated,
+      async (parent, args, {models}) => await models.PricePoint.destroy({where: {
+        createdAt: {
+          [Sequelize.Op.lte]: moment().subtract(5, 'days').toDate()
+        }
+      }})
+    )
   },
   Subscription: {
     pricePointCreated: {

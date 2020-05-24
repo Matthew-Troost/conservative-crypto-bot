@@ -11,6 +11,7 @@ const pricePoint = gql`
       crypto: String!,
       value: Float!
     ): PricePoint!
+    deleteOldPricePoints: Boolean!
   }
   extend type Subscription {
     pricePointCreated: PricePointCreated
