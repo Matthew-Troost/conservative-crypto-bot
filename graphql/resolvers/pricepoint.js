@@ -46,7 +46,7 @@ const resolvers = {
       isAuthenticated,
       async (parent, args, {models}) => await models.PricePoint.destroy({where: {
         createdAt: {
-          [Sequelize.Op.lte]: moment().subtract(5, 'days').toDate()
+          [Sequelize.Op.lte]: moment().subtract(3, 'days').toDate()
         }
       }})
     )
