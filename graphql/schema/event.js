@@ -9,7 +9,7 @@ const event = gql`
     createEvent(type: String!, pricepointId: Int!): Event!
   }
   extend type Subscription {
-    eventCreated: EventCreated!
+    eventCreated: EventCreated
   }
 
   #----- FIELDS -----
