@@ -24,6 +24,7 @@ const models = {
   PricePoint: sequelize.import("./pricepoint"),
   Event: sequelize.import("./event"),
   State: sequelize.import("./state"),
+  Profile: sequelize.import("./profile"),
 };
 
 Object.keys(models).forEach((key) => {

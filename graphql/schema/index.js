@@ -4,6 +4,7 @@ const userSchema = require('./user');
 const pricePointSchema = require('./pricepoint');
 const eventSchema = require('./event');
 const stateSchema = require('./state');
+const profileSchema = require('./profile');
 
 const linkSchema = gql`
   scalar Date
@@ -18,4 +19,4 @@ const linkSchema = gql`
     _: Boolean
   }
 `;
-module.exports = [linkSchema, userSchema, pricePointSchema, eventSchema, stateSchema];
+module.exports = [linkSchema, userSchema, pricePointSchema, eventSchema, stateSchema, profileSchema];
