@@ -48,6 +48,9 @@ const server = new ApolloServer({
             loaders.batchPricePoints(keys, models)
           ),
           user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
+          profile: new DataLoader((keys) =>
+            loaders.batchProfiles(keys, models)
+          ),
         },
       };
     }
@@ -63,10 +66,13 @@ const server = new ApolloServer({
             loaders.batchPricePoints(keys, models)
           ),
           user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
+          profile: new DataLoader((keys) =>
+            loaders.batchProfiles(keys, models)
+          ),
         },
       };
     }
-  }
+  },
 });
 
 server.applyMiddleware({ app, path: "/graphql" });

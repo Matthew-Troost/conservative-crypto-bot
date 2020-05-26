@@ -5,6 +5,7 @@ const pricePointResolvers = require("./pricepoint");
 const eventResolvers = require("./event");
 const stateResolvers = require("./state");
 const profileResolvers = require("./profile");
+const entryResolvers = require("./entry");
 
 const customScalarResolver = {
   Date: GraphQLDateTime,
@@ -17,4 +18,5 @@ module.exports = [
   eventResolvers,
   stateResolvers,
   profileResolvers,
+  entryResolvers
 ];
