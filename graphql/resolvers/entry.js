@@ -1,7 +1,6 @@
 const { combineResolvers } = require("graphql-resolvers");
 const { isAuthenticated } = require("./authorization");
 const { pubsub, EVENTS } = require("../subscriptions");
-const Sequelize = require("sequelize");
 
 const resolvers = {
   Query: {

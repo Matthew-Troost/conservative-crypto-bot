@@ -26,6 +26,7 @@ const models = {
   State: sequelize.import("./state"),
   Profile: sequelize.import("./profile"),
   Entry: sequelize.import("./entry"),
+  Exit: sequelize.import("./exit"),
 };
 
 Object.keys(models).forEach((key) => {

@@ -40,18 +40,23 @@ const server = new ApolloServer({
   },
   context: async ({ req, connection }) => {
     // this function is hit everytime a request is made to the server
+    let all_loaders = {
+      pricePoint: new DataLoader((keys) =>
+        loaders.batchPricePoints(keys, models)
+      ),
+      user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
+      profile: new DataLoader((keys) =>
+        loaders.batchProfiles(keys, models)
+      ),
+      entry: new DataLoader((keys) =>
+        loaders.batchEntries(keys, models)
+      ),
+    }
+
     if (connection) {
       return {
         models,
-        loaders: {
-          pricePoint: new DataLoader((keys) =>
-            loaders.batchPricePoints(keys, models)
-          ),
-          user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
-          profile: new DataLoader((keys) =>
-            loaders.batchProfiles(keys, models)
-          ),
-        },
+        loaders: all_loaders
       };
     }
 
@@ -61,15 +66,7 @@ const server = new ApolloServer({
         models,
         me,
         secret: process.env.SECRET,
-        loaders: {
-          pricePoint: new DataLoader((keys) =>
-            loaders.batchPricePoints(keys, models)
-          ),
-          user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
-          profile: new DataLoader((keys) =>
-            loaders.batchProfiles(keys, models)
-          ),
-        },
+        loaders: all_loaders
       };
     }
   },
