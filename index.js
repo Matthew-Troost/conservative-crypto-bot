@@ -17,7 +17,8 @@ const getMe = async (req) => {
     try {
       return await jwt.verify(token, process.env.SECRET);
     } catch (e) {
-      throw new AuthenticationError("Your session expired. Sign in again.");
+      //commented this out as it would throw an error for unauth queries if token had expired
+      //throw new AuthenticationError("Your session expired. Sign in again.");
     }
   }
 };
@@ -45,18 +46,14 @@ const server = new ApolloServer({
         loaders.batchPricePoints(keys, models)
       ),
       user: new DataLoader((keys) => loaders.batchUsers(keys, models)),
-      profile: new DataLoader((keys) =>
-        loaders.batchProfiles(keys, models)
-      ),
-      entry: new DataLoader((keys) =>
-        loaders.batchEntries(keys, models)
-      ),
-    }
+      profile: new DataLoader((keys) => loaders.batchProfiles(keys, models)),
+      entry: new DataLoader((keys) => loaders.batchEntries(keys, models)),
+    };
 
     if (connection) {
       return {
         models,
-        loaders: all_loaders
+        loaders: all_loaders,
       };
     }
 
@@ -66,7 +63,7 @@ const server = new ApolloServer({
         models,
         me,
         secret: process.env.SECRET,
-        loaders: all_loaders
+        loaders: all_loaders,
       };
     }
   },
