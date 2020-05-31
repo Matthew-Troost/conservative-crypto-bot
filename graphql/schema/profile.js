@@ -7,6 +7,7 @@ const profile = gql`
   extend type Mutation {
     createProfile(
       name: String!
+      lunoAccountId: String
       stopLimitPercentage: Float!
       reservePercentage: Float!
       maximumLossesPerDay: Int!
@@ -15,6 +16,7 @@ const profile = gql`
     updateProfile(
       id: ID!
       name: String
+      lunoAccountId: String
       stopLimitPercentage: Float
       reservePercentage: Float
       maximumLossesPerDay: Int
@@ -27,6 +29,7 @@ const profile = gql`
     id: ID!
     createdAt: Date!
     name: String!
+    lunoAccountId: String
     stopLimitPercentage: Float!
     reservePercentage: Float!
     maximumLossesPerDay: Int!

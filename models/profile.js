@@ -9,6 +9,9 @@ const profile = (sequelize, DataTypes) => {
         },
       },
     },
+    lunoAccountId: {
+      type: DataTypes.STRING,
+    },
     stopLimitPercentage: {
       type: DataTypes.FLOAT,
       validate: {

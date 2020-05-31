@@ -13,22 +13,10 @@ const resolvers = {
       isAuthenticated,
       async (
         parent,
-        {
-          name,
-          stopLimitPercentage,
-          reservePercentage,
-          maximumLossesPerDay,
-          tradeInput,
-        },
+        args,
         { models }
       ) => {
-        const profile = await models.Profile.create({
-          name,
-          stopLimitPercentage,
-          reservePercentage,
-          maximumLossesPerDay,
-          tradeInput,
-        });
+        const profile = await models.Profile.create(args);
         return profile;
       }
     ),
