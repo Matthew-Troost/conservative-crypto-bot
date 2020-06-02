@@ -1,21 +1,20 @@
 const { combineResolvers } = require("graphql-resolvers");
 const { isAuthenticated } = require("./authorization");
-const lodash = require('lodash')
+const lodash = require("lodash");
 
 const resolvers = {
   Query: {
-    profiles: async (parent, args, { models }) => {
-      return await models.Profile.findAll();
-    },
+    profiles: combineResolvers(
+      isAuthenticated,
+      async (parent, args, { models }) => {
+        return await models.Profile.findAll();
+      }
+    ),
   },
   Mutation: {
     createProfile: combineResolvers(
       isAuthenticated,
-      async (
-        parent,
-        args,
-        { models }
-      ) => {
+      async (parent, args, { models }) => {
         const profile = await models.Profile.create(args);
         return profile;
       }
@@ -23,7 +22,7 @@ const resolvers = {
     updateProfile: combineResolvers(
       isAuthenticated,
       async (parent, args, { models }) => {
-        await models.Profile.update(lodash.omit(args, 'id'), {
+        await models.Profile.update(lodash.omit(args, "id"), {
           where: {
             id: args.id,
           },
